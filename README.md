@@ -3,16 +3,23 @@ Nieuwe reserveringen van de huidige dag, uitdraaien op de bonnenprinter (bijv. i
 
 ## Opzetten van lokale omgeving
 Dit script maakt gebruik van:
-- Python 
-- Python escpos
-- Python dotenv
+ 
+**Python escpos**
+```bash
+pip install python-escpos
+```
+
+**Python dotenv**
+```bash
+pip install -U python-dotenv
+```
 
 ### Omgevingsvariabele
 Maak een bestand aan genaamd `.env` 
 Vul dit document met de volgende variabele:
 
 ```bash
-INTERVAL_MINUTEN=16
+INTERVAL_MINUTEN=15
 FORMITABLE_APIKEY=""
 FORMITABLE_RESTAURANTID=""
 IP_PRINTER=""
