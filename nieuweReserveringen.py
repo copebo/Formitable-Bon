@@ -81,17 +81,17 @@ for reservering in reserveringen:
 
 if reserveringPrinten:
 
-    print(""+ tijdVandaagPrint +" "+ datumVandaagPrint +"")
-    print(reserveringPrinten)
+    # print(""+ tijdVandaagPrint +" "+ datumVandaagPrint +"")
+    # print(reserveringPrinten)
 
-    # # Lijstje opmaken om te printen
-    # kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address
-    # # kitchen.set(font='b')
-    # kitchen.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
+    # Lijstje opmaken om te printen
+    kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address
+    # kitchen.set(font='b')
+    kitchen.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
 
-    # for reserveringPrint in reserveringPrinten:
-    #     kitchen.text(reserveringPrint +"\n")
+    for reserveringPrint in reserveringPrinten:
+        kitchen.text(reserveringPrint +"\n")
 
-    # # Cut
-    # kitchen._raw(b'\x1B\x64' + b'\x03')
+    # Cut
+    kitchen._raw(b'\x1B\x64' + b'\x03')
 
