@@ -42,5 +42,6 @@ crontab -e
 ```
 Kies hierna voor nano als editor
 
-Geef aan wanneer, welk script moet draaien
-`15 9 5 7 * /home/pi/yourscript.py` will execute yourscript.py located in your home folder on every 5th of July, at 9:15 AM.
+`*/5 11-20 * * * /home/pi/Formitable-Bon/nieuweReserveringen.py` zorgt ervoor dat nieuweReserveringen.py elke dag van de week tussen 11-20 elke 5 minuten wordt aangeroepen
+
+Uitrekenen kan via https://crontab.guru
