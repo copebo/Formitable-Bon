@@ -34,3 +34,13 @@ IP_PRINTER=""
 ### Handige links
 - Epson ESC/POS commands https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=2
 - 
+
+## Cronjob op Raspberry
+Om te zorgen dat het script niet alleen draait wanneer iemand het bestand aanroept, kan je eenvoudig een cronjob instellen op een Raspberry PI
+```bash
+crontab -e
+```
+Kies hierna voor nano als editor
+
+Geef aan wanneer, welk script moet draaien
+`15 9 5 7 * /home/pi/yourscript.py` will execute yourscript.py located in your home folder on every 5th of July, at 9:15 AM.
