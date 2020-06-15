@@ -7,7 +7,7 @@ locale.setlocale(locale.LC_ALL, 'nl_NL')
 
 # Printer benodigdheden
 from escpos.constants import GS
-from escpos.printer import Network
+from escpos.printer import Network, Dummy
 import six
 
 # Env files
@@ -73,25 +73,45 @@ for reservering in reserveringen:
             else:
                 reserveringTeken = "?"
 
-        reserveringPrinten.append(reserveringTeken+" "+ str(reservering['numberOfPeople']) + " p om "+ reserveringTijd +" - "+ reserveringNaam)
+        reserveringPrinten.append({"bericht" : reserveringTeken+" "+ str(reservering['numberOfPeople']) + "p om "+ reserveringTijd +" - "+ reserveringNaam })
 
         for ticket in reservering['tickets']:
             if ticket["title"] == "High Tea":
-                reserveringPrinten.append("^^ High Tea")
+                reserveringPrinten.append({"opmerking" : "^^ High Tea"})
+
 
 if reserveringPrinten:
 
-    # print(""+ tijdVandaagPrint +" "+ datumVandaagPrint +"")
-    # print(reserveringPrinten)
+    kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address    
+    # kitchen = Dummy() # Deze kan je gebruiken om de output op te slaan, om later te printen
 
-    # Lijstje opmaken om te printen
-    kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address
-    # kitchen.set(font='b')
     kitchen.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
+    # Maak tekst zwart
+    kitchen._raw(b'\x1B\x35' + b'\x01')
+
 
     for reserveringPrint in reserveringPrinten:
-        kitchen.text(reserveringPrint +"\n")
+
+        if reserveringPrint.get("bericht"):
+            # print(reserveringPrint.get("bericht"))
+
+            # kitchen._raw(b'\x1B\x21'+ b'\x01') # font b
+            kitchen.text(reserveringPrint.get("bericht") +"\n")
+
+        if reserveringPrint.get("opmerking"):
+            # print(reserveringPrint.get("opmerking"))
+            # Maak tekst rood
+            kitchen._raw(b'\x1B\x34' + b'\x01')
+            kitchen.text(reserveringPrint.get("opmerking") +"\n")
+            # Maak tekst zwart
+            kitchen._raw(b'\x1B\x35' + b'\x01')
+
+            # kitchen._raw(b'\x1B\x45' + b'\x00') # regular
+
 
     # Cut
     kitchen._raw(b'\x1B\x64' + b'\x03')
+
+    # Als je Dummy() hebt gebruikt, moet je de volgende regel uncommenten om het te printen
+    # print( kitchen.output )
 
