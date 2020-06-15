@@ -11,10 +11,12 @@ Dit script maakt gebruik van:
 Maak een bestand aan genaamd `.env` 
 Vul dit document met de volgende variabele:
 
-```INTERVAL_MINUTEN=16
+```bash
+INTERVAL_MINUTEN=16
 FORMITABLE_APIKEY=""
 FORMITABLE_RESTAURANTID=""
-IP_PRINTER=""```
+IP_PRINTER=""
+```
 
 - De interval wordt gebruikt om te bepalen hoevaak de reserveringupdate afgedrukt moet worden (in minuten)
 - De Formitable ApiKey is om een verbinding op te zetten met jouw account bij Formitable
