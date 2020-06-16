@@ -5,7 +5,7 @@ Dit script is opgebouwd voor de "Star SP742" en zal later uitgebreid worden.
 ## Opzetten van lokale omgeving
 Dit script maakt gebruik van:
  
-**Python (escpos)[https://github.com/python-escpos/python-escpos]**
+**Python [escpos](https://github.com/python-escpos/python-escpos)**
 ```bash
 pip install python-escpos
 ```
