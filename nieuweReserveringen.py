@@ -2,8 +2,8 @@ import requests
 
 # Datum
 import datetime
-import locale
-locale.setlocale(locale.LC_ALL, 'nl_NL')
+# import locale
+# locale.setlocale(locale.LC_ALL, 'nl_NL')
 
 # Printer benodigdheden
 from escpos.constants import GS
