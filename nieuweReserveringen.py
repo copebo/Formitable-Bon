@@ -36,7 +36,7 @@ response = requests.get(f"https://api.formitable.com/api/v1.2/{restaurantID}/boo
 )
 
 # Moment van opvragen - intervalMinuten
-tijdSlotStart = datetime.datetime.now() - datetime.timedelta(minutes=intervalMinuten)
+tijdSlotStart = datumVandaag - datetime.timedelta(minutes=intervalMinuten)
 
 # Opvragen van reserveringen
 reserveringen = response.json()
@@ -86,31 +86,29 @@ if reserveringPrinten:
     # kitchen = Dummy() # Deze kan je gebruiken om de output op te slaan, om later te printen
 
     kitchen.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
+    
     # Maak tekst zwart
     kitchen._raw(b'\x1B\x35' + b'\x01')
-
 
     for reserveringPrint in reserveringPrinten:
 
         if reserveringPrint.get("bericht"):
-            # print(reserveringPrint.get("bericht"))
-
-            # kitchen._raw(b'\x1B\x21'+ b'\x01') # font b
             kitchen.text(reserveringPrint.get("bericht") +"\n")
 
         if reserveringPrint.get("opmerking"):
-            # print(reserveringPrint.get("opmerking"))
             # Maak tekst rood
             kitchen._raw(b'\x1B\x34' + b'\x01')
             kitchen.text(reserveringPrint.get("opmerking") +"\n")
             # Maak tekst zwart
             kitchen._raw(b'\x1B\x35' + b'\x01')
 
-            # kitchen._raw(b'\x1B\x45' + b'\x00') # regular
-
 
     # Cut
     kitchen._raw(b'\x1B\x64' + b'\x03')
+
+    # Buzzer (?) STAR Printer
+    # To Test
+    # kitchen._raw(b'\x1B\x1D' + b'\x07')
 
     # Als je Dummy() hebt gebruikt, moet je de volgende regel uncommenten om het te printen
     # print( kitchen.output )
