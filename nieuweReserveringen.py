@@ -118,7 +118,7 @@ if reserveringPrinten:
     # kitchen._raw(b'\x1B\x1D' + b'\x07')
 
     # Als je Dummy() hebt gebruikt, moet je de volgende regel uncommenten om het te printen
-    # print( kitchen.output )
+    # print( output.output )
 
     kitchen._raw( output.output )
 
