@@ -37,8 +37,7 @@ IP_PRINTER=""
 - IP Printer is het IP-adres van de printer waarop de update afgedrukt moet worden
 
 ### Handige links
-- Epson ESC/POS commands https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=2
-- 
+- Epson ESC/POS commands https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=2 
 
 ## Cronjob op Raspberry
 Om te zorgen dat het script niet alleen draait wanneer iemand het bestand aanroept, kan je eenvoudig een cronjob instellen op een Raspberry PI
@@ -47,6 +46,6 @@ crontab -e
 ```
 Kies hierna voor nano als editor
 
-`*/5 11-20 * * * /home/pi/Formitable-Bon/nieuweReserveringen.py` zorgt ervoor dat nieuweReserveringen.py elke dag van de week tussen 11-20 elke 5 minuten wordt aangeroepen
+`*/5 11-20 * * * /home/pi/scripts/FormitableBon/venv/bin/python3 /home/pi/scripts/Formitable-Bon/nieuweReserveringen.py` zorgt ervoor dat nieuweReserveringen.py elke dag van de week tussen 11-20 elke 5 minuten wordt aangeroepen
 
 Uitrekenen kan via https://crontab.guru

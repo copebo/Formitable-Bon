@@ -1,4 +1,5 @@
 .env
 /venv
 /.vscode
-
+/log.txt
+/printerTest.py

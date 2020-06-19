@@ -1,5 +1,9 @@
 import requests
 
+# Logging
+import logging
+logging.basicConfig(filename='log.txt',level=logging.DEBUG)
+
 # Datum
 import datetime
 import locale
@@ -28,8 +32,7 @@ tijdVandaagPrint = datetime.datetime.now().strftime("%H:%M")
 # Verbinding maken met Formitable API
 restaurantID = os.getenv("FORMITABLE_RESTAURANTID")
 aantalDagen = 1
-response = requests.get(f"https://api.formitable.com/api/v1.2/{restaurantID}/booking/{datumVandaagDatum}/{aantalDagen}",
- headers={
+response = requests.get(f"https://api.formitable.com/api/v1.2/{restaurantID}/booking/{datumVandaagDatum}/{aantalDagen}", headers={
    "ApiKey": os.getenv("FORMITABLE_APIKEY"),
    "Content-Type": "application/json",
    "Accept-Version": "v3"
@@ -83,29 +86,32 @@ for reservering in reserveringen:
 
 if reserveringPrinten:
 
-    kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address    
-    # kitchen = Dummy() # Deze kan je gebruiken om de output op te slaan, om later te printen
+    logging.debug("Reserveringen worden geprint")
 
-    kitchen.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
+    kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address    
+    output = Dummy()
+
+    output.text("Reservering Update ("+ tijdVandaagPrint +" "+ datumVandaagPrint +")\n\n")
     
     # Maak tekst zwart
-    kitchen._raw(b'\x1B\x35' + b'\x01')
+    output._raw(b'\x1B\x35' + b'\x01')
 
     for reserveringPrint in reserveringPrinten:
 
         if reserveringPrint.get("bericht"):
-            kitchen.text(reserveringPrint.get("bericht") +"\n")
+            output.text(reserveringPrint.get("bericht") +"\n")
 
         if reserveringPrint.get("opmerking"):
             # Maak tekst rood
-            kitchen._raw(b'\x1B\x34' + b'\x01')
-            kitchen.text(reserveringPrint.get("opmerking") +"\n")
+            output._raw(b'\x1B\x34' + b'\x01')
+            output.text(reserveringPrint.get("opmerking") +"\n")
             # Maak tekst zwart
-            kitchen._raw(b'\x1B\x35' + b'\x01')
+            output._raw(b'\x1B\x35' + b'\x01')
 
 
     # Cut
-    kitchen._raw(b'\x1B\x64' + b'\x03')
+    output._raw(b'\x1B\x64' + b'\x03')
+
 
     # Buzzer (?) STAR Printer
     # To Test
@@ -113,4 +119,9 @@ if reserveringPrinten:
 
     # Als je Dummy() hebt gebruikt, moet je de volgende regel uncommenten om het te printen
     # print( kitchen.output )
+
+    kitchen._raw( output.output )
+
+else:
+    logging.debug("Er is niks te printen")
 
