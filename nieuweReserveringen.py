@@ -2,7 +2,7 @@ import requests
 
 # Logging
 import logging
-logging.basicConfig(filename='log.txt',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',datefmt='%Y-%m-%d %H:%M:%S',filename='log.txt',level=logging.DEBUG)
 
 # Datum
 import datetime
