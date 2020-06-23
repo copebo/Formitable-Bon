@@ -46,6 +46,7 @@ tijdSlotStart = datumVandaag - datetime.timedelta(minutes=intervalMinuten)
 reserveringen = response.json()
 
 reserveringPrinten = []
+aantalReserveringen = 0
 
 # Reserveringen doorlopen
 for reservering in reserveringen:
@@ -83,10 +84,11 @@ for reservering in reserveringen:
             if ticket["title"] == "High Tea":
                 reserveringPrinten.append({"opmerking" : "^^ High Tea"})
 
+        aantalReserveringen += 1
 
 if reserveringPrinten:
 
-    logging.debug("Reserveringen worden geprint")
+    logging.debug('%s reserveringen worden geprint', aantalReserveringen)
 
     kitchen = Network( os.getenv("IP_PRINTER") ) #Printer IP Address    
     output = Dummy()
